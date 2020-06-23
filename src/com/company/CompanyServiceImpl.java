@@ -43,21 +43,11 @@ public class CompanyServiceImpl implements ICompanyService {
         // get current company's children to count their employees
         List<Company> children = company.getChildren();
 
-        // while there is children left
-        while (children.size() != 0) {
-            // get first child in the list
-            Company currentChild = children.get(0);
-            // if current child has children
-            if (currentChild.getChildren().size() > 0) {
-                // add companies to children list for future processing
-                children.addAll(currentChild.getChildren());
-            }
-            // sum current child employees count
-            count += currentChild.getEmployeesCount();
-            // remove child form the list because
-            // it's employees count count was already added to counter
-            children.remove(currentChild);
+        for (Company child : children) {
+            // get children's children
+            count += this.getEmployeeCountForCompanyAndChildren(child, companies);
         }
+
         // return counted value
         return count;
     }
