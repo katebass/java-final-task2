@@ -30,9 +30,7 @@ public class Company {
 
         // if this company has parent, add it to parent's children list
         if (parent != null) {
-            ArrayList<Company> el = new ArrayList<Company>(parent.getChildren());
-            el.add(this);
-            parent.setChildren(el);
+            parent.addChild(this);
         }
     }
 
@@ -66,6 +64,10 @@ public class Company {
 
     public void setChildren(ArrayList<Company> children) {
         this.children = children;
+    }
+
+    public void addChild(Company company) {
+        this.children.add(company);
     }
 
     @Override
